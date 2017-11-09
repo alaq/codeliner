@@ -16,8 +16,11 @@ class App extends Component {
     super(props);
     this.state = {
       active: null,
-      outline: outline
+      outline: outline,
+      headNode: null // not used yet
     };
+
+    // Binding
     this.updateTree = this.updateTree.bind(this);
     this.onClickNode = this.onClickNode.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,29 +29,38 @@ class App extends Component {
     this.renderNode = this.renderNode.bind(this);
   }
 
-  handleKeyPress (evt) {
+  handleKeyPress (evt, node, index) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
+      if (node.children.length) {
+        node.children.unshift({
+          module: 'new node!',
+        });
+        this.setState({
+          outline: node
+        });
+      }
     } else if (true) {
-      // console.log('key pressed!', evt.key)
+      console.log('key pressed!', evt.key)
       // console.log(evt)
     }
   }
 
-  renderNode (node) {
+  renderNode (node, index) {
     return (
-      <div>
-        <div className="bullet"></div>
+      <span>
+        <span className="bullet"></span>
         <ContentEditable
           html={node.module}
           className="node"
           tagName="span"
-          onChange={ this.handleTextChange }
+          onChange={(evt, value) => this.handleTextChange(evt, value, node) }
           contentEditable="plaintext-only"
           onClick={this.onClickNode}
-          onKeyPress={this.handleKeyPress}
+          onKeyPress={(evt) => this.handleKeyPress(evt, node)}
         />
-        <ContentEditable
+        <span style={{color: 'lightgrey'}}> [JavaScript Output: {eval(2+2)}]</span>
+        <br/><ContentEditable
           html={node.note}
           className="note"
           tagName="span"
@@ -56,14 +68,14 @@ class App extends Component {
           contentEditable="plaintext-only"
           onClick={this.onClickNode}
         />
-      </div>
+      </span>
     );
   }
 
-  handleTextChange (evt, value) {
+  handleTextChange (evt, value, node) {
     const updatedNode = this.state.active;
     updatedNode.module = value;
-    this.setState({active: updatedNode})
+    // this.setState({active: updatedNode})
   }
 
   onClickNode (node) {
@@ -73,25 +85,18 @@ class App extends Component {
   }
 
   render() {
-    console.log('outline rendered', outline)
     return (
       <div className="app">
-        <h1>Home</h1>
+        <h1>Stackathon: Codeliner</h1>
+        <span>in Fullstack Academy > Projects</span>
         <div className="tree">
           {<Tree
-            paddingLeft={20}
+            paddingLeft={60}
             tree={this.state.outline}
             onChange={this.handleChange}
             isNodeCollapsed={this.isNodeCollapsed}
             renderNode={this.renderNode}
           />}
-        </div>
-        <div className="inspector">
-          <h1>
-            {packageJSON.name} {packageJSON.version}
-          </h1>
-          <button onClick={this.updateTree}>Add line</button>
-          <pre>{JSON.stringify(this.state.outline, null, '  ')}</pre>
         </div>
       </div>
     );

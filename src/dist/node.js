@@ -122,7 +122,7 @@ var UITreeNode = function (_Component) {
           'div',
           { className: 'inner', ref: 'inner', onMouseDown: this.handleMouseDown },
           this.renderCollapse(),
-          tree.renderNode(node)
+          tree.renderNode(node, index)
         ),
         node.collapsed ? null : this.renderChildren()
       );

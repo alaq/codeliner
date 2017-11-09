@@ -1,14 +1,5 @@
 .tree {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  /* width: 300px; */
-  /* overflow-x: hidden;
-  overflow-y: auto; */
-  /* background-color: #21252B; */
-  margin-bottom: 0px;
+  margin-top: 1em;
 }
 .m-node.placeholder {
   border: 1px dashed #ccc;
@@ -34,35 +25,42 @@ h1 {
   font-size: 36px;
   padding-top: 30px;
   font-weight: 100;
+  margin-bottom: 0px;
   /* font-family: 'Helvetica', sans-serif; */
 }
 
-.bullet {
+/* .bullet {
   background-image: url('/bullet.svg');
   width: 1em;
   height: 1em;
   z-index: 9;
   display: inline-block;
-}
+} */
 
-.bullet:hover {
+/* .bullet:hover {
   background-color: #aaa;
   border-radius: 12px;
-}
+} */
 
 .node {
-  width: 90%;
+  /* width: 90%; */
+  padding-left: 5px;
 }
 
 .note {
   color: #666;
   font-size: 18px;
+  padding-left: 50px;
+}
+
+.note:empty {
+  display: none;
 }
 
 [contenteditable] {
   outline: 0px solid transparent;
 }
 
-.children {
+/* .children {
   padding-left: 24px!important;
-}
+} */

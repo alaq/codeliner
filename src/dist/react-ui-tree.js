@@ -85,7 +85,7 @@ UITree.propTypes = {
   renderNode: _propTypes2.default.func.isRequired
 };
 UITree.defaultProps = {
-  paddingLeft: 20
+  paddingLeft: 50
 };
 
 var _initialiseProps = function _initialiseProps() {

@@ -1,49 +1,66 @@
 module.exports = {
-  module: 'react-ui-tree',
+  module: 'Home',
+  isRoot: true,
   children: [
     {
-      module: 'dist',
-      collapsed: true,
+      module: 'Stackathon Dev Journal',
+      collapsed: false,
+      note: 'A record of progress, or lack of, day by day',
       children: [
         {
-          module: 'node.js',
+          module: 'Wednesday',
           leaf: true,
-          note: 'small kitty'
+          children: [
+            {
+              module: 'Started late afternoon',
+              leaf: true
+            },
+
+          ]
         },
         {
-          module: 'react-ui-tree.css',
+          module: 'Thursday',
           leaf: true
         },
         {
-          module: 'react-ui-tree.js',
+          module: 'Friday',
           leaf: true
         },
         {
-          module: 'tree.js',
+          module: 'Saturday',
           leaf: true
-        }
+        },
+        {
+          module: 'Sunday',
+          leaf: true
+        },
+        {
+          module: 'Monday: presentation 🎉',
+          leaf: true
+        },
       ]
     },
     {
-      module: 'example',
+      module: 'Project',
       children: [
         {
-          module: 'app.js',
+          module: 'Backlog',
           leaf: true,
           result: ''
         },
         {
-          module: 'app.less',
+          module: 'Maybe/Later',
           leaf: true
         },
         {
-          module: 'index.html',
+          module: 'Done',
           leaf: true
         }
       ]
     },
     {
-      module: 'lib',
+      module: 'Ideas',
+      collapsed: true,
       children: [
         {
           module: 'node.js',
@@ -64,32 +81,34 @@ module.exports = {
       ]
     },
     {
-      module: '.gitiignore',
-      leaf: true
+      module: 'Other',
+      leaf: true,
+      children: [
+        {
+          module: 'https://github.com/stasm/innerself',
+          leaf: true
+        },
+        {
+          module: 'LICENSE',
+          leaf: true
+        },
+        {
+          module: 'Makefile',
+          leaf: true
+        },
+        {
+          module: 'package.json',
+          leaf: true
+        },
+        {
+          module: 'README.md',
+          leaf: true
+        },
+        {
+          module: 'webpack.config.js',
+          leaf: true
+        }
+      ]
     },
-    {
-      module: 'index.js',
-      leaf: true
-    },
-    {
-      module: 'LICENSE',
-      leaf: true
-    },
-    {
-      module: 'Makefile',
-      leaf: true
-    },
-    {
-      module: 'package.json',
-      leaf: true
-    },
-    {
-      module: 'README.md',
-      leaf: true
-    },
-    {
-      module: 'webpack.config.js',
-      leaf: true
-    }
   ]
 };
