@@ -29,7 +29,8 @@ module.exports = {
       children: [
         {
           module: 'app.js',
-          leaf: true
+          leaf: true,
+          result: ''
         },
         {
           module: 'app.less',

@@ -18,10 +18,11 @@
   font-size: 22px;
   font-weight: 100;
   font-family: 'Helvetica', sans-serif;
+  padding: 2px;
 }
 .m-node .node {
   display: inline-block;
-  width: 100%;
+  /* width: 100%; */
   /* padding: 4px 5px; */
 }
 .m-node .node.is-active {
@@ -38,12 +39,10 @@ h1 {
 
 .bullet {
   background-image: url('/bullet.svg');
-  width: 18px;
-  height: 18px;
+  width: 1em;
+  height: 1em;
   z-index: 9;
   display: inline-block;
-  margin-top: 5px;
-  left: 50px;
 }
 
 .bullet:hover {
@@ -62,4 +61,8 @@ h1 {
 
 [contenteditable] {
   outline: 0px solid transparent;
+}
+
+.children {
+  padding-left: 24px!important;
 }
