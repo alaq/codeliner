@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# more additions
+public/bundle.js
