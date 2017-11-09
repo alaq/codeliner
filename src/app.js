@@ -9,20 +9,20 @@ import outline from './tree';
 import ContentEditable from 'react-simple-contenteditable';
 
 // JAIL
-// const jailed = require('../jailed/jailed.js');
 
 // var code = "application.remote.alert('Hello from the plugin!');";
-// var api = {
-//     alert: alert
-// }
+var code = 'const node = 124; application.remote.alert(node * 4);';
+var api = {
+    alert: alert
+}
 
-// var plugin = new jailed.DynamicPlugin(code, api);
+var plugin = new jailed.DynamicPlugin(code, api);
 
-// plugin.whenConnected(
-//   function() {
-//       plugin.remote.run(code);
-//   }
-// );
+plugin.whenConnected(
+  function() {
+      plugin.remote(code);
+  }
+);
 
 
 // // URL.createObjectURL
