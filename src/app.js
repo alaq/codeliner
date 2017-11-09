@@ -13,40 +13,33 @@ import ContentEditable from 'react-simple-contenteditable';
 
 // var code = "application.remote.alert('Hello from the plugin!');";
 // var api = {
-//      alert: alert
-//     };
+//     alert: alert
+// }
+
 // var plugin = new jailed.DynamicPlugin(code, api);
 
-// plugin.whenConnected(function() {
-//   console.log('started');
-//   // plugin.remote.code();
-// });
+// plugin.whenConnected(
+//   function() {
+//       plugin.remote.run(code);
+//   }
+// );
 
-// function run(fn) {
-//   return new Worker(URL.createObjectURL(new Blob(['(' + fn + ')()'])));
-// }
 
-// function sayHi () {
-//   console.log('Hi!');
-// }
+// // URL.createObjectURL
+// window.URL = window.URL || window.webkitURL;
 
-// run('2 + 2');
+// // "Server response", used in all examples
+// var response = "self.onmessage=function(e){postMessage('Worker: '+e.data);}";
 
-// URL.createObjectURL
-window.URL = window.URL || window.webkitURL;
+// var blob;
+// blob = new Blob([response], {type: 'application/javascript'});
+// var worker = new Worker(URL.createObjectURL(blob));
 
-// "Server response", used in all examples
-var response = "self.onmessage=function(e){postMessage('Worker: '+e.data);}";
-
-var blob;
-blob = new Blob([response], {type: 'application/javascript'});
-var worker = new Worker(URL.createObjectURL(blob));
-
-// Test, used in all examples:
-worker.onmessage = function(e) {
-    console.log('Response: ' + e.data);
-};
-worker.postMessage('1+1');
+// // Test, used in all examples:
+// worker.onmessage = function(e) {
+//     console.log('Response: ' + e.data);
+// };
+// worker.postMessage('1+1');
 
 class App extends Component {
   constructor(props) {
@@ -71,18 +64,17 @@ class App extends Component {
     if (evt.key === 'Enter') {
       evt.preventDefault();
       if (node.children.length) {
+        console.log(node)
         node.children.unshift({
           module: 'new node!',
         });
-        this.setState({
-          outline: node
-        });
+        // this.setState({
+        //   outline: node
+        // });
       }
     } else {
-      console.log('key pressed!', evt.key);
-      // const toEval = node.module.toString();
-      // const res =  run(toEval);
-      // console.log(res);
+      console.log('to run', node.module.toString());
+      // node.result = eval(node.module.toString());
     }
   }
 
@@ -97,9 +89,9 @@ class App extends Component {
           onChange={(evt, value) => this.handleTextChange(evt, value, index, tree) }
           contentEditable="plaintext-only"
           onClick={this.onClickNode}
-          onKeyPress={(evt) => this.handleKeyPress(evt, node)}
+          onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
-        <span style={{color: 'lightgrey'}}> [JavaScript Output: children: {node.children && node.children.length}]</span>
+        <span style={{color: 'lightgrey'}}> [JavaScript Output: { node.result }]</span>
         <br /><ContentEditable
           html={node.note}
           className="note"
@@ -126,7 +118,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.outline);
+    console.log('outline', outline)
     return (
       <div className="app">
         <h1>Stackathon: Codeliner</h1>

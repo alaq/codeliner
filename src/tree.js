@@ -122,7 +122,7 @@ module.exports = {
           uid: '20',
         },
         {
-          module: 'README.md',
+          module: 'node.children.length',
           leaf: true,
           uid: '21',
         },
@@ -130,6 +130,7 @@ module.exports = {
           module: 'webpack.config.js',
           leaf: true,
           uid: '22',
+          result: ''
         }
       ]
     },
