@@ -6,11 +6,17 @@
 }
 .m-node .inner {
   color: #333;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 100;
   font-family: 'Helvetica', sans-serif;
   padding: 2px;
 }
+
+.m-node:first-of-type .children:first-child {
+  /* fix this, the padding doesn't apply when dragged and dropped */
+  /* padding-left: 0px!important; */
+}
+
 .m-node .node {
   display: inline-block;
   /* width: 100%; */
@@ -49,8 +55,8 @@ h1 {
 
 .note {
   color: #666;
-  font-size: 18px;
-  padding-left: 50px;
+  font-size: 12px;
+  padding-left: 45px;
 }
 
 .note:empty {

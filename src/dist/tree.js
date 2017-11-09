@@ -54,6 +54,12 @@ proto.move = function (fromId, toId, placement) {
   return index;
 };
 
+// Here we update the content of the node (node.module)
+proto.update = function (id, newValue) {
+  this.indexes[id.id].node.module = newValue;
+  this.updateNodesPosition();
+};
+
 proto.getNodeByTop = function (top) {
   var indexes = this.indexes;
   for (var id in indexes) {

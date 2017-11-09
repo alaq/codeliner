@@ -34,6 +34,7 @@
   cursor: pointer;
   padding-left: 10px;
 }
+
 .m-node .collapse {
   /* position: absolute; */
   /* left: 0; */
@@ -50,7 +51,19 @@
   margin-right: 10px;
 }
 
-.bullet {
+.m-node .bullet:before {
+  content: '\25CF';
+  color: #666;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.bullet:hover {
+  background-color: #aaa;
+  border-radius: 100%;
+}
+
+.bullet-old {
   background-image: url('/bullet.svg');
   width: 1em;
   height: 1em;
@@ -62,7 +75,4 @@
   border-radius: 12px;
 }
 
-.bullet:hover {
-  background-color: #aaa;
-  border-radius: 12px;
-}
+

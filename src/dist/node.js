@@ -118,11 +118,12 @@ var UITreeNode = function (_Component) {
           }),
           style: styles
         },
+        node.module === 'Home' ? '' : // here we don't render if it is the headNode
         _react2.default.createElement(
           'div',
           { className: 'inner', ref: 'inner', onMouseDown: this.handleMouseDown },
           this.renderCollapse(),
-          tree.renderNode(node, index)
+          tree.renderNode(node, index, tree)
         ),
         node.collapsed ? null : this.renderChildren()
       );
