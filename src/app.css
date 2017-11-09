@@ -1,0 +1,28 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Helvetica', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* font-size: 100%; */
+  font-weight: 100;
+  color: #333;
+  max-width: 50em;
+  margin: 0 auto;
+}
+.inspector {
+  margin-left: 400px;
+}
+.inspector pre {
+  font-family: Menlo;
+  font-size: 13px;
+}

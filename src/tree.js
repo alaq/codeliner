@@ -7,7 +7,8 @@ module.exports = {
       children: [
         {
           module: 'node.js',
-          leaf: true
+          leaf: true,
+          note: 'small kitty'
         },
         {
           module: 'react-ui-tree.css',

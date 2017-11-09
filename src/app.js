@@ -1,12 +1,15 @@
 // import "../lib/react-ui-tree.less";
+import "react-ui-tree/dist/react-ui-tree.css"
 // import "./theme.less";
-// import './app.less';
+import "./theme.css";
+import './app.css';
 // import cx from 'classnames';
 import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
 import Tree from 'react-ui-tree';
 import outline from './tree';
 import packageJSON from '../package.json';
+import ContentEditable from 'react-simple-contenteditable';
 
 class App extends Component {
   constructor(props) {
@@ -15,19 +18,32 @@ class App extends Component {
       active: null,
       outline: outline
     };
+    this.updateTree = this.updateTree.bind(this);
+    this.onClickNode = this.onClickNode.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   renderNode (node) {
     return (
-      <span
-        /* className={cx('node', {
-          'is-active': node === this.state.active
-        })}
-        onClick={this.onClickNode.bind(null, node)}
-      */
-      >
-        {node.module}
-      </span>
+      <div>
+        {/* <div className="bullet"></div> */}
+        <ContentEditable
+          html={node.module}
+          className="node"
+          tagName="span"
+          /* onChange={ this.handleChange } */
+          contentEditable="plaintext-only"
+          onClick={this.onClickNode}
+        />
+        <ContentEditable
+          html={node.note}
+          className="note"
+          tagName="span"
+          /* onChange={ this.handleChange } */
+          contentEditable="plaintext-only"
+          onClick={this.onClickNode}
+        />
+      </div>
     );
   }
 
@@ -38,9 +54,10 @@ class App extends Component {
   }
 
   render() {
+    console.log('outline rendered', outline)
     return (
       <div className="app">
-        <h1>jhskjdfh</h1>
+        <h1>Home</h1>
         <div className="tree">
           {<Tree
             paddingLeft={20}
@@ -54,7 +71,7 @@ class App extends Component {
           <h1>
             {packageJSON.name} {packageJSON.version}
           </h1>
-          <button onClick={this.updateTree}>update tree</button>
+          <button onClick={this.updateTree}>Add line</button>
           <pre>{JSON.stringify(this.state.outline, null, '  ')}</pre>
         </div>
       </div>

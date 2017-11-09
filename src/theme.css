@@ -1,0 +1,65 @@
+.tree {
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  /* width: 300px; */
+  /* overflow-x: hidden;
+  overflow-y: auto; */
+  /* background-color: #21252B; */
+  margin-bottom: 0px;
+}
+.m-node.placeholder {
+  border: 1px dashed #ccc;
+}
+.m-node .inner {
+  color: #333;
+  font-size: 22px;
+  font-weight: 100;
+  font-family: 'Helvetica', sans-serif;
+}
+.m-node .node {
+  display: inline-block;
+  width: 100%;
+  /* padding: 4px 5px; */
+}
+.m-node .node.is-active {
+  /* background-color: #31363F; */
+  background-color: #FAFAFA;
+}
+
+h1 {
+  font-size: 36px;
+  padding-top: 30px;
+  font-weight: 100;
+  /* font-family: 'Helvetica', sans-serif; */
+}
+
+.bullet {
+  background-image: url('/bullet.svg');
+  width: 18px;
+  height: 18px;
+  z-index: 9;
+  display: inline-block;
+  margin-top: 5px;
+  left: 50px;
+}
+
+.bullet:hover {
+  background-color: #aaa;
+  border-radius: 12px;
+}
+
+.node {
+  width: 90%;
+}
+
+.note {
+  color: #666;
+  font-size: 18px;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}

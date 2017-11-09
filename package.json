@@ -23,5 +23,9 @@
     "react-simple-contenteditable": "^0.0.3",
     "react-ui-tree": "^3.1.0",
     "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "style-loader": "^0.19.0"
   }
 }
