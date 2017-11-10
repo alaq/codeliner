@@ -41,6 +41,7 @@ class App extends Component {
       headNode: outline.module, // not used yet
       lastNode: '22',
       input: '',
+      functions: [`function helloWorld() { return 'hello Mueed' }`, 'function elloWorld() { return 1+1 }']
     };
 
     // Binding
@@ -60,18 +61,17 @@ class App extends Component {
       if (node.children.length) {
         console.log(node);
         node.children.unshift({
-          module: 'new node!',
+          module: 'New Node!',
+          children: []
         });
-        console.log('index', index);
-        this.setState({
-          outline: node
-        });
+        this.setState({input: evt.key});
       }
-    } else {
-      const newState = JSON.parse(JSON.stringify(this.state.outline));
-      console.log('newState', newState);
-      this.setState(newState);
     }
+    // else {
+    //   const newState = JSON.parse(JSON.stringify(this.state.outline));
+    //   console.log('newState', newState);
+    //   this.setState(newState);
+    // }
   }
 
   handleBulletClick(evt, node, index) {
@@ -95,7 +95,7 @@ class App extends Component {
           onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
           contentEditable="plaintext-only"
           onClick={(evt) => this.onClickNode(evt, node)}
-          // onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
+          onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
         <span style={{ color: 'lightgrey' }}> [JavaScript Output: {node.result}]</span>
         <br /><ContentEditable
@@ -111,7 +111,7 @@ class App extends Component {
   }
 
   handleTextChange(evt, value, index, tree, node) {
-    tree.update(index, value, tree, node, this.jankySetState)
+    tree.update(index, value, tree, node, this.jankySetState, this.state.functions);
   }
 
   onClickNode(evt, node) {

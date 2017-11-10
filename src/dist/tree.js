@@ -50,8 +50,8 @@ proto.updateNodesPosition = function() {
 proto.move = function(fromId, toId, placement) {
   if (fromId === toId || toId === 1) return
 
-  var obj = this.remove(fromId)
-  var index = null
+  var obj = this.remove(fromId);
+  var index = null;
 
   if (placement === 'before') index = this.insertBefore(obj, toId)
   else if (placement === 'after') index = this.insertAfter(obj, toId)
@@ -64,26 +64,29 @@ proto.move = function(fromId, toId, placement) {
 }
 
 // Here we update the content of the node (node.module)
-proto.update = function(id, newValue, tree, nod, jankySetState) {
+proto.update = function(id, newValue, tree, nod, jankySetState, functions) {
   this.indexes[id.id].node.module = newValue;
+  const node = nod;
 
-  const node = id.node;
+  // lets declare the functions
+  const funcs = functions.join(' ');
+  newValue = funcs + newValue;
 
   try {
     const result = eval(newValue.toString());
     if (typeof result === 'object') this.indexes[id.id].node.result = JSON.stringify(result);
     else this.indexes[id.id].node.result = result;
   } catch (e) {
+    // console.error(e);
     this.indexes[id.id].node.result = e.toString();
   }
 
-  this.updateNodesPosition();
-
+  // this.updateNodesPosition(); // not sure this is necessary
   jankySetState({ input: newValue });
-}
+};
 
 proto.getNodeByTop = function(top) {
-  var indexes = this.indexes
+  var indexes = this.indexes;
   for (var id in indexes) {
     if (indexes.hasOwnProperty(id)) {
       if (indexes[id].top === top) return indexes[id]
