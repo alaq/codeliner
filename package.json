@@ -1,13 +1,14 @@
 {
   "name": "codeliner",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "A versatile outliner extensible via JavaScript",
   "main": "index.js",
   "scripts": {
     "compile": "webpack",
     "start": "node server",
     "start-dev": "webpack -w & yarn start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "script/deploy"
   },
   "repository": "https://github.com/alaq/codeliner.git",
   "author": "Adrien Lacquemant <verblodung@gmail.com>",
