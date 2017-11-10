@@ -9,7 +9,6 @@ import outline from './tree';
 import ContentEditable from 'react-simple-contenteditable';
 
 // JAIL
-
 // var code = "application.remote.alert('Hello from the plugin!');";
 var code = 'const node = 124; application.remote.alert(node * 4);';
 var api = {
@@ -75,6 +74,8 @@ class App extends Component {
     } else {
       console.log('to run', node.module.toString());
       // node.result = eval(node.module.toString());
+      const newState = JSON.parse(JSON.stringify(this.state.outline));
+      this.setState(newState);
     }
   }
 
@@ -109,6 +110,7 @@ class App extends Component {
     // updatedNode.module = value;
     // this.setState({active: updatedNode})
     tree.update(index, value)
+    // this.setState()
   }
 
   onClickNode (node) {
@@ -118,7 +120,8 @@ class App extends Component {
   }
 
   render() {
-    console.log('outline', outline)
+    console.log('outline', outline);
+    console.log(this.state);
     return (
       <div className="app">
         <h1>Stackathon: Codeliner</h1>
