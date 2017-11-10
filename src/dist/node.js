@@ -56,7 +56,7 @@ var UITreeNode = function (_Component) {
           tree = _this$props.tree,
           dragging = _this$props.dragging;
 
-          console.log('_this.props', _this.props)
+          // console.log('_this.props', _this.props)
 
       if (index.children && index.children.length) {
         var childrenStyles = {

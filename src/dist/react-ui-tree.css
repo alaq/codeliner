@@ -39,6 +39,7 @@
   /* position: absolute; */
   /* left: 0; */
   cursor: pointer;
+  display: none;
 }
 .m-node .caret-right:before {
   content: '\25B8';

@@ -8,21 +8,29 @@ import outline from './tree';
 // import packageJSON from '../package.json';
 import ContentEditable from 'react-simple-contenteditable';
 
+// console.log(eval(`console.log('runnin'); axios.get('https://api.github.com/repos/vmg/redcarpet/issues?state=closed')
+// .then(function (response) {
+//   console.log(response);
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });`))
+
 // JAIL
 // var code = "application.remote.alert('Hello from the plugin!');";
-var code = 'const node = 124; application.remote.alert(node * 4);';
+// var code = `const node = 124; application.remote.alert(node * 4);`;
 var api = {
-    alert: alert
+  alert: alert
 }
 
-// var plugin = new jailed.DynamicPlugin(code, api);
+var plugin = new jailed.DynamicPlugin(code, api);
 
 // Uncomment to use the sandbox
-// plugin.whenConnected(
-//   function() {
-//       plugin.remote(code);
-//   }
-// );
+plugin.whenConnected(
+  function() {
+      // plugin.remote(code);
+  }
+);
 
 class App extends Component {
   constructor(props) {
@@ -44,7 +52,7 @@ class App extends Component {
     this.handleBulletClick = this.handleBulletClick.bind(this);
   }
 
-  handleKeyPress (evt, node, index) {
+  handleKeyPress(evt, node, index) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
       if (node.children.length) {
@@ -58,28 +66,32 @@ class App extends Component {
       }
     } else {
       const newState = JSON.parse(JSON.stringify(this.state.outline));
+      console.log('newState', newState)
       this.setState(newState);
     }
   }
 
-  handleBulletClick (evt, index) {
+  handleBulletClick(evt, node, index) {
     console.log('push to #', index.id)
+    this.setState({
+      outline: node
+    });
   }
 
-  renderNode (node, index, tree) {
+  renderNode(node, index, tree) {
     return (
       <span>
-        <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, index)} />
+        <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} />
         <ContentEditable
           html={node.module}
           className="node"
           tagName="span"
-          onChange={(evt, value) => this.handleTextChange(evt, value, index, tree) }
+          onChange={(evt, value) => this.handleTextChange(evt, value, index, tree)}
           contentEditable="plaintext-only"
           onClick={this.onClickNode}
           onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
-        <span style={{color: 'lightgrey'}}> [JavaScript Output: { node.result }]</span>
+        <span style={{ color: 'lightgrey' }}> [JavaScript Output: {node.result}]</span>
         <br /><ContentEditable
           html={node.note}
           className="note"
@@ -92,17 +104,18 @@ class App extends Component {
     );
   }
 
-  handleTextChange (evt, value, index, tree) {
+  handleTextChange(evt, value, index, tree) {
     tree.update(index, value)
   }
 
-  onClickNode (node) {
+  onClickNode(evt) {
     this.setState({
-      active: node
+      active: event
     });
   }
 
   render() {
+    console.log('this.state', this.state)
     return (
       <div className="app">
         <h1>{this.state.outline.module}</h1>
@@ -120,13 +133,13 @@ class App extends Component {
     );
   }
 
-  handleChange (outlineChange) {
+  handleChange(outlineChange) {
     this.setState({
       outline: outlineChange
     })
   }
 
-  updateTree () {
+  updateTree() {
     const outlineUpdate = this.state.outline;
     outlineUpdate.children.push({
       module: 'New node',
