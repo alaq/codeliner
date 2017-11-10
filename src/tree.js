@@ -7,6 +7,7 @@ module.exports = {
       collapsed: false,
       note: 'A record of progress, or lack of, day by day',
       uid: '1',
+      result: 'Stackathon Dev Journal',
       children: [
         {
           module: 'Wednesday',
@@ -127,10 +128,11 @@ module.exports = {
           uid: '21',
         },
         {
-          module: 'webpack.config.js',
+          module: 'new Date()',
           leaf: true,
           uid: '22',
-          result: ''
+          result: 'Fri Nov 10 2017 11:39:44 GMT-0500 (EST)',
+          note: 'Here is a matching note to go with it.'
         }
       ]
     },

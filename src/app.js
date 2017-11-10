@@ -19,18 +19,18 @@ import ContentEditable from 'react-simple-contenteditable';
 // JAIL
 // var code = "application.remote.alert('Hello from the plugin!');";
 // var code = `const node = 124; application.remote.alert(node * 4);`;
-var api = {
-  alert: alert
-}
+// var api = {
+//   alert: alert
+// }
 
-var plugin = new jailed.DynamicPlugin(code, api);
+// var plugin = new jailed.DynamicPlugin(code, api);
 
-// Uncomment to use the sandbox
-plugin.whenConnected(
-  function() {
-      // plugin.remote(code);
-  }
-);
+// // Uncomment to use the sandbox
+// plugin.whenConnected(
+//   function() {
+//       // plugin.remote(code);
+//   }
+// );
 
 class App extends Component {
   constructor(props) {
@@ -39,10 +39,12 @@ class App extends Component {
       active: null,
       outline: outline, // outline.children[0] to redirect to a child node
       headNode: outline.module, // not used yet
-      lastNode: '22'
+      lastNode: '22',
+      input: '',
     };
 
     // Binding
+    this.jankySetState = this.setState.bind(this);
     this.updateTree = this.updateTree.bind(this);
     this.onClickNode = this.onClickNode.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -56,40 +58,44 @@ class App extends Component {
     if (evt.key === 'Enter') {
       evt.preventDefault();
       if (node.children.length) {
-        console.log(node)
+        console.log(node);
         node.children.unshift({
           module: 'new node!',
         });
-        // this.setState({
-        //   outline: node
-        // });
+        console.log('index', index);
+        this.setState({
+          outline: node
+        });
       }
     } else {
       const newState = JSON.parse(JSON.stringify(this.state.outline));
-      console.log('newState', newState)
+      console.log('newState', newState);
       this.setState(newState);
     }
   }
 
   handleBulletClick(evt, node, index) {
-    console.log('push to #', index.id)
+    console.log('push to #', index.id);
     this.setState({
       outline: node
     });
   }
 
   renderNode(node, index, tree) {
+    const active = +this.state.active === +node.uid;
     return (
       <span>
         <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} />
         <ContentEditable
+          // html={node.result || node.module}
+          // html={node.module + ' ' + node.uid}
           html={node.module}
-          className="node"
+          className={ active ? 'node is-active' : 'node'}
           tagName="span"
-          onChange={(evt, value) => this.handleTextChange(evt, value, index, tree)}
+          onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
           contentEditable="plaintext-only"
-          onClick={this.onClickNode}
-          onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
+          onClick={(evt) => this.onClickNode(evt, node)}
+          // onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
         <span style={{ color: 'lightgrey' }}> [JavaScript Output: {node.result}]</span>
         <br /><ContentEditable
@@ -104,18 +110,19 @@ class App extends Component {
     );
   }
 
-  handleTextChange(evt, value, index, tree) {
-    tree.update(index, value)
+  handleTextChange(evt, value, index, tree, node) {
+    tree.update(index, value, tree, node, this.jankySetState)
   }
 
-  onClickNode(evt) {
+  onClickNode(evt, node) {
     this.setState({
-      active: event
+      active: node.uid
     });
+    console.log('activation!');
   }
 
   render() {
-    console.log('this.state', this.state)
+    console.log('this.state', this.state);
     return (
       <div className="app">
         <h1>{this.state.outline.module}</h1>
@@ -136,7 +143,7 @@ class App extends Component {
   handleChange(outlineChange) {
     this.setState({
       outline: outlineChange
-    })
+    });
   }
 
   updateTree() {

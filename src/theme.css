@@ -40,7 +40,7 @@ h1 {
 .note {
   color: #666;
   font-size: 12px;
-  padding-left: 45px;
+  padding-left: 20px;
 }
 
 .note:empty {
@@ -50,7 +50,7 @@ h1 {
 [contenteditable] {
   outline: 0px solid transparent;
 }
- 
+
 .m-tree > .m-node > .children {
   padding-left: 0px!important;
 }

@@ -20,6 +20,7 @@
     "express": "^4.16.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-linkify": "^0.2.1",
     "react-router-dom": "^4.2.2",
     "react-simple-contenteditable": "^0.0.3",
     "react-ui-tree": "^3.1.0",
