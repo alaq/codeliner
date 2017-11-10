@@ -118,7 +118,7 @@ var UITreeNode = function (_Component) {
           }),
           style: styles
         },
-        node.module === 'Home' ? '' : // here we don't render if it is the headNode
+        index.id === 1 ? '' : // here we don't render if it is the headNode
         _react2.default.createElement(
           'div',
           { className: 'inner', ref: 'inner', onMouseDown: this.handleMouseDown },

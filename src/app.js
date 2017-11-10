@@ -45,8 +45,8 @@ class App extends Component {
     super(props);
     this.state = {
       active: null,
-      outline: outline,
-      headNode: outline.node, // not used yet
+      outline: outline.children[0],
+      headNode: outline.module, // not used yet
       lastNode: '22'
     };
 
@@ -124,7 +124,7 @@ class App extends Component {
     console.log(this.state);
     return (
       <div className="app">
-        <h1>Stackathon: Codeliner</h1>
+        <h1>{this.state.outline.module}</h1>
         <span>in Fullstack Academy > Projects</span>
         <div className="tree">
           {<Tree
@@ -148,8 +148,8 @@ class App extends Component {
   updateTree () {
     const outlineUpdate = this.state.outline;
     outlineUpdate.children.push({
-      module: 'test',
-      note: ''
+      module: 'New node',
+      note: 'With a note 🗒️'
     });
     this.setState({
       outline: outlineUpdate
