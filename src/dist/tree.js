@@ -59,8 +59,8 @@ proto.move = function(fromId, toId, placement) {
   else if (placement === 'append') index = this.append(obj, toId)
 
   // todo: perf
-  this.updateNodesPosition()
-  return index
+  this.updateNodesPosition();
+  return index;
 }
 
 // Here we update the content of the node (node.module)

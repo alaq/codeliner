@@ -40,7 +40,7 @@ var UITreeNode = function (_Component) {
         var collapsed = index.node.collapsed;
 
 
-        return _react2.default.createElement('span', {
+        return _react2.default.createElement('div', {
           className: (0, _classnames2.default)('collapse', collapsed ? 'caret-right' : 'caret-down'),
           onMouseDown: function onMouseDown(e) {
             return e.stopPropagation();

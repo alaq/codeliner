@@ -66,12 +66,12 @@ class App extends Component {
     this.handleBulletClick = this.handleBulletClick.bind(this);
   }
 
-  handleKeyPress(evt, node, index) {
+  handleKeyPress(evt, node, index, tree) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
-      if (node.children.length) {
+      if (node.children.length && node.collapsed === false) {
         console.log(node);
-        const newNode = new Node('hello');
+        const newNode = new Node('');
         // node.children.unshift({
         //   module: 'New Node!',
         //   children: []
@@ -80,6 +80,11 @@ class App extends Component {
         console.log(newNode);
         console.log(newNode.nametwice());
         this.setState({input: evt.key});
+      }
+      else {
+        console.log('looks like the node is either collapsed, or has no children');
+        console.log('node', node);
+        console.log('index', index);
       }
     }
     // else {
@@ -112,7 +117,7 @@ class App extends Component {
           onClick={(evt) => this.onClickNode(evt, node)}
           onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
-        <span style={{ color: 'lightgrey' }}> [JavaScript Output: {node.result}]</span>
+        <div className="js"> [JavaScript Output: {node.result}]</div>
         <br /><ContentEditable
           html={node.note}
           className="note"
@@ -140,7 +145,12 @@ class App extends Component {
     console.log('this.state', this.state);
     return (
       <div className="app">
-        <h1>{this.state.outline.module}</h1>
+        <h1>{this.state.outline.module}
+        <div className="nav-icon">⚙️</div>
+        <div className="nav-icon">🏠</div>
+        {/* <div className="home">Settings</div> */}
+        </h1>
+        {/* <div className="home">🏠</div> */}
         <span>in Fullstack Academy > Projects</span>
         <div className="tree">
           {<Tree
@@ -151,6 +161,13 @@ class App extends Component {
             renderNode={this.renderNode}
           />}
         </div>
+        {/* <div className="inspector">
+          <h1>
+            Inspector
+          </h1>
+          <button onClick={this.updateTree}>update tree</button>
+          <pre>{JSON.stringify(this.state.tree, null, '  ')}</pre>
+        </div> */}
       </div>
     );
   }
