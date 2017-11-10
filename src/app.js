@@ -15,37 +15,21 @@ var api = {
     alert: alert
 }
 
-var plugin = new jailed.DynamicPlugin(code, api);
+// var plugin = new jailed.DynamicPlugin(code, api);
 
-plugin.whenConnected(
-  function() {
-      plugin.remote(code);
-  }
-);
-
-
-// // URL.createObjectURL
-// window.URL = window.URL || window.webkitURL;
-
-// // "Server response", used in all examples
-// var response = "self.onmessage=function(e){postMessage('Worker: '+e.data);}";
-
-// var blob;
-// blob = new Blob([response], {type: 'application/javascript'});
-// var worker = new Worker(URL.createObjectURL(blob));
-
-// // Test, used in all examples:
-// worker.onmessage = function(e) {
-//     console.log('Response: ' + e.data);
-// };
-// worker.postMessage('1+1');
+// Uncomment to use the sandbox
+// plugin.whenConnected(
+//   function() {
+//       plugin.remote(code);
+//   }
+// );
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       active: null,
-      outline: outline.children[0],
+      outline: outline, // outline.children[0] to redirect to a child node
       headNode: outline.module, // not used yet
       lastNode: '22'
     };
@@ -57,6 +41,7 @@ class App extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.renderNode = this.renderNode.bind(this);
+    this.handleBulletClick = this.handleBulletClick.bind(this);
   }
 
   handleKeyPress (evt, node, index) {
@@ -72,17 +57,19 @@ class App extends Component {
         // });
       }
     } else {
-      console.log('to run', node.module.toString());
-      // node.result = eval(node.module.toString());
       const newState = JSON.parse(JSON.stringify(this.state.outline));
       this.setState(newState);
     }
   }
 
+  handleBulletClick (evt, index) {
+    console.log('push to #', index.id)
+  }
+
   renderNode (node, index, tree) {
     return (
       <span>
-        <span className="bullet" />
+        <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, index)} />
         <ContentEditable
           html={node.module}
           className="node"
@@ -106,11 +93,7 @@ class App extends Component {
   }
 
   handleTextChange (evt, value, index, tree) {
-    // const updatedNode = this.state.active;
-    // updatedNode.module = value;
-    // this.setState({active: updatedNode})
     tree.update(index, value)
-    // this.setState()
   }
 
   onClickNode (node) {
@@ -120,8 +103,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('outline', outline);
-    console.log(this.state);
     return (
       <div className="app">
         <h1>{this.state.outline.module}</h1>

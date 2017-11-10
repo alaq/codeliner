@@ -56,6 +56,7 @@ var UITreeNode = function (_Component) {
           tree = _this$props.tree,
           dragging = _this$props.dragging;
 
+          console.log('_this.props', _this.props)
 
       if (index.children && index.children.length) {
         var childrenStyles = {
@@ -118,7 +119,7 @@ var UITreeNode = function (_Component) {
           }),
           style: styles
         },
-        index.id === 1 ? '' : // here we don't render if it is the headNode
+        index.id === 1 ? '' :
         _react2.default.createElement(
           'div',
           { className: 'inner', ref: 'inner', onMouseDown: this.handleMouseDown },

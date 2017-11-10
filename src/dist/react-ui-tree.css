@@ -54,13 +54,12 @@
 .m-node .bullet:before {
   content: '\25CF';
   color: #666;
-  padding-left: 5px;
   padding-right: 5px;
 }
 
-.bullet:hover {
-  background-color: #aaa;
-  border-radius: 100%;
+.m-node .bullet:before:hover {
+  /* below is not working */
+  color: red;
 }
 
 .bullet-old {
@@ -74,5 +73,3 @@
   background-color: #ddd;
   border-radius: 12px;
 }
-
-

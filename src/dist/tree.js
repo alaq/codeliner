@@ -57,7 +57,6 @@ proto.move = function (fromId, toId, placement) {
 // Here we update the content of the node (node.module)
 proto.update = function (id, newValue) {
   this.indexes[id.id].node.module = newValue;
-  // this.indexes[id.id].node.result = eval(newValue.toString());
   this.indexes[id.id].node.result = 'eval placeholder for ' + newValue;
   this.updateNodesPosition();
 };

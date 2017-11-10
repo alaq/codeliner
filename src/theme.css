@@ -12,18 +12,16 @@
   padding: 2px;
 }
 
-.m-node:first-of-type .children:first-child {
-  /* fix this, the padding doesn't apply when dragged and dropped */
-  /* padding-left: 0px!important; */
+
+.m-node ~ .children {
+  padding-left: 60px!important;
 }
 
 .m-node .node {
   display: inline-block;
-  /* width: 100%; */
-  /* padding: 4px 5px; */
 }
+
 .m-node .node.is-active {
-  /* background-color: #31363F; */
   background-color: #FAFAFA;
 }
 
@@ -32,21 +30,8 @@ h1 {
   padding-top: 30px;
   font-weight: 100;
   margin-bottom: 0px;
-  /* font-family: 'Helvetica', sans-serif; */
 }
 
-/* .bullet {
-  background-image: url('/bullet.svg');
-  width: 1em;
-  height: 1em;
-  z-index: 9;
-  display: inline-block;
-} */
-
-/* .bullet:hover {
-  background-color: #aaa;
-  border-radius: 12px;
-} */
 
 .node {
   /* width: 90%; */
@@ -66,7 +51,7 @@ h1 {
 [contenteditable] {
   outline: 0px solid transparent;
 }
-
-/* .children {
-  padding-left: 24px!important;
-} */
+ 
+.m-tree > .m-node > .children {
+  padding-left: 0px!important;
+}
