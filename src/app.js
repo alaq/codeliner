@@ -32,6 +32,17 @@ import ContentEditable from 'react-simple-contenteditable';
 //   }
 // );
 
+
+function Node(text) {
+  this.module = text;
+  this.nametwice = function () {
+    return this.module + ' ' + this.module;
+  }
+}
+
+var theTree = new Tree('Redwood');
+console.log('theTree.constructor is ' + theTree.constructor);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +52,7 @@ class App extends Component {
       headNode: outline.module, // not used yet
       lastNode: '22',
       input: '',
-      functions: [`function helloWorld() { return 'hello Mueed' }`, 'function elloWorld() { return 1+1 }']
+      functions: [`function helloWorld() { return 'hello world' }`, 'function elloWorld() { return 1+1 }']
     };
 
     // Binding
@@ -60,10 +71,14 @@ class App extends Component {
       evt.preventDefault();
       if (node.children.length) {
         console.log(node);
-        node.children.unshift({
-          module: 'New Node!',
-          children: []
-        });
+        const newNode = new Node('hello');
+        // node.children.unshift({
+        //   module: 'New Node!',
+        //   children: []
+        // });
+        node.children.unshift(newNode);
+        console.log(newNode);
+        console.log(newNode.nametwice());
         this.setState({input: evt.key});
       }
     }

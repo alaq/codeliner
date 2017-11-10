@@ -77,7 +77,6 @@ proto.update = function(id, newValue, tree, nod, jankySetState, functions) {
     if (typeof result === 'object') this.indexes[id.id].node.result = JSON.stringify(result);
     else this.indexes[id.id].node.result = result;
   } catch (e) {
-    // console.error(e);
     this.indexes[id.id].node.result = e.toString();
   }
 
