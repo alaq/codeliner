@@ -57,7 +57,7 @@ h1 {
 
 .inner:hover .collapse {
   display: inline;
-  position: absolute;
+  /* position: absolute; */
   left: -25px;
 }
 
@@ -74,16 +74,18 @@ h1 {
 }
 
 .nav-icon {
-  /* color: #666; */
-  display: inline-block;
-  /* height: 25px;
-  width: 25px; */
-  /* position: absolute; */
-  /* background-color: lightgray; */
-  /* right: 0px; */
   font-size: 0.8em;
-  padding-left: 1em;
   float: right;
   margin-top: 5px;
+  
+}
 
+.nav-icon .icons {
+  display: inline;
+  padding-left: 1em;
+  color: #666;
+}
+
+.nav-icon .icons:hover {
+  color: red;
 }

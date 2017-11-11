@@ -36,8 +36,6 @@
 }
 
 .m-node .collapse {
-  /* position: absolute; */
-  /* left: 0; */
   cursor: pointer;
   display: none;
 }
@@ -52,14 +50,17 @@
   margin-right: 10px;
 }
 
+.m-node .caret-down:hover::before, .caret-right:hover::before {
+  color: red;
+}
+
 .m-node .bullet:before {
   content: '\25CF';
   color: #666;
   padding-right: 5px;
 }
 
-.m-node .bullet:before:hover {
-  /* below is not working */
+.m-node .bullet:hover::before {
   color: red;
 }
 

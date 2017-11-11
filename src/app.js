@@ -8,40 +8,13 @@ import outline from './tree';
 // import packageJSON from '../package.json';
 import ContentEditable from 'react-simple-contenteditable';
 
-// console.log(eval(`console.log('runnin'); axios.get('https://api.github.com/repos/vmg/redcarpet/issues?state=closed')
-// .then(function (response) {
-//   console.log(response);
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });`))
-
-// JAIL
-// var code = "application.remote.alert('Hello from the plugin!');";
-// var code = `const node = 124; application.remote.alert(node * 4);`;
-// var api = {
-//   alert: alert
-// }
-
-// var plugin = new jailed.DynamicPlugin(code, api);
-
-// // Uncomment to use the sandbox
-// plugin.whenConnected(
-//   function() {
-//       // plugin.remote(code);
-//   }
-// );
-
-
 function Node(text) {
   this.module = text;
   this.nametwice = function () {
     return this.module + ' ' + this.module;
-  }
+  };
+  this.children = []
 }
-
-var theTree = new Tree('Redwood');
-console.log('theTree.constructor is ' + theTree.constructor);
 
 class App extends Component {
   constructor(props) {
@@ -60,6 +33,7 @@ class App extends Component {
     this.updateTree = this.updateTree.bind(this);
     this.onClickNode = this.onClickNode.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onHomeClick = this.onHomeClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.renderNode = this.renderNode.bind(this);
@@ -70,21 +44,15 @@ class App extends Component {
     if (evt.key === 'Enter') {
       evt.preventDefault();
       if (node.children.length && node.collapsed === false) {
-        console.log(node);
         const newNode = new Node('');
-        // node.children.unshift({
-        //   module: 'New Node!',
-        //   children: []
-        // });
         node.children.unshift(newNode);
-        console.log(newNode);
-        console.log(newNode.nametwice());
         this.setState({input: evt.key});
       }
       else {
-        console.log('looks like the node is either collapsed, or has no children');
-        console.log('node', node);
-        console.log('index', index);
+        const positionInArrOfNewNode = tree.indexes[index.parent].children.indexOf(index.id) + 1;
+        tree.indexes[index.parent].node.children.splice(positionInArrOfNewNode, 0, new Node(''))
+        this.setState({input: evt.key});
+
       }
     }
     // else {
@@ -95,7 +63,6 @@ class App extends Component {
   }
 
   handleBulletClick(evt, node, index) {
-    console.log('push to #', index.id);
     this.setState({
       outline: node
     });
@@ -118,7 +85,8 @@ class App extends Component {
           onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
         <div className="js"> [JavaScript Output: {node.result}]</div>
-        <br /><ContentEditable
+        <br />
+        <ContentEditable
           html={node.note}
           className="note"
           tagName="span"
@@ -126,6 +94,7 @@ class App extends Component {
           contentEditable="plaintext-only"
           onClick={this.onClickNode}
         />
+        <div className="note output"></div>
       </span>
     );
   }
@@ -136,9 +105,14 @@ class App extends Component {
 
   onClickNode(evt, node) {
     this.setState({
-      active: node.uid
+      active: node.uid,
+      input: node.uuid
     });
-    console.log('activation!');
+    console.log('active state', this.state.active);
+  }
+
+  onHomeClick () {
+    this.setState({outline: outline})
   }
 
   render() {
@@ -146,8 +120,11 @@ class App extends Component {
     return (
       <div className="app">
         <h1>{this.state.outline.module}
-        <div className="nav-icon">⚙️</div>
-        <div className="nav-icon">🏠</div>
+        <div className="nav-icon">
+          <div className="icons" onClick={this.onHomeClick}>🏠</div>
+          <div className="icons">⚙️</div>
+        </div>
+        
         {/* <div className="home">Settings</div> */}
         </h1>
         {/* <div className="home">🏠</div> */}
