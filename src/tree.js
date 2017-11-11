@@ -8,6 +8,7 @@ module.exports = {
       note: 'A record of progress, or lack of, day by day',
       uid: '1',
       result: 'Stackathon Dev Journal',
+      parents: () => 'here will be the parents',
       children: [
         {
           module: 'Wednesday',
@@ -16,7 +17,8 @@ module.exports = {
           children: [
             {
               module: 'Started late afternoon',
-              leaf: true
+              leaf: true,
+              children: []
             },
 
           ]

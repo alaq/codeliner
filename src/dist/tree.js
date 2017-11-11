@@ -69,8 +69,7 @@ proto.update = function(id, newValue, tree, nod, jankySetState, functions) {
   const node = nod;
 
   // lets declare the functions
-  const funcs = functions.join(' ');
-  newValue = funcs + newValue;
+  newValue = functions + newValue;
 
   try {
     const result = eval(newValue.toString());

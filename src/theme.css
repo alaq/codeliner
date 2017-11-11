@@ -62,30 +62,46 @@ h1 {
 }
 
 .js {
-  /* background-color: #eee; */
-  display: inline-block;
-  /* border-radius: 5px;
-  padding: 3px; */
+  display: none;
   position: absolute;
   right: 0px;
-  /* top: 0px; */
   color: #333;
   box-sizing: border-box;
+  max-width: 300px;
+}
+
+.node:focus + .js {
+  display: inline-block;
 }
 
 .nav-icon {
   font-size: 0.8em;
   float: right;
   margin-top: 5px;
-  
+
+}
+
+.nav-icon:hover .icons {
+  display: inline;
+  opacity: 1;
 }
 
 .nav-icon .icons {
-  display: inline;
+  opacity: 0;
   padding-left: 1em;
   color: #666;
 }
 
+
 .nav-icon .icons:hover {
   color: red;
+  opacity: 1;
 }
+
+.ace_text.ace_text-layer {
+  font-family: 'Helvetica', sans-serif;
+}
+
+/* body > *:not(#loading) {
+  filter: blur(3px);
+} */

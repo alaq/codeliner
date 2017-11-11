@@ -1,12 +1,21 @@
 import './dist/react-ui-tree.css';
 import './theme.css';
 import './app.css';
-// import cx from 'classnames';
 import React, { Component } from 'react';
 import Tree from './dist/react-ui-tree';
 import outline from './tree';
-// import packageJSON from '../package.json';
 import ContentEditable from 'react-simple-contenteditable';
+import AceEditor from 'react-ace';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+// import { style } from 'react-syntax-highlighter/dist/styles/vs'
+// import { style } from '../public/vs'
+var FontAwesome = require('react-fontawesome');
+
+import 'brace/mode/javascript';
+import 'brace/theme/github';
+
+// import packageJSON from '../package.json';
+// import cx from 'classnames';
 
 function Node(text) {
   this.module = text;
@@ -16,16 +25,26 @@ function Node(text) {
   this.children = []
 }
 
+const functions = `function helloWorld() {
+  return 'hello world'
+}
+
+function elloWorld() {
+  return 1+1
+}
+`
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       active: null,
-      outline: outline, // outline.children[0] to redirect to a child node
+      outline: outline,
       headNode: outline.module, // not used yet
       lastNode: '22',
       input: '',
-      functions: [`function helloWorld() { return 'hello world' }`, 'function elloWorld() { return 1+1 }']
+      functions: functions,
+      showFunctions: false,
     };
 
     // Binding
@@ -38,6 +57,8 @@ class App extends Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.renderNode = this.renderNode.bind(this);
     this.handleBulletClick = this.handleBulletClick.bind(this);
+    this.handleFunctionsChange = this.handleFunctionsChange.bind(this);
+    this.toggleFunctions = this.toggleFunctions.bind(this);
   }
 
   handleKeyPress(evt, node, index, tree) {
@@ -46,13 +67,12 @@ class App extends Component {
       if (node.children.length && node.collapsed === false) {
         const newNode = new Node('');
         node.children.unshift(newNode);
-        this.setState({input: evt.key});
+        this.setState({ input: evt.key });
       }
       else {
         const positionInArrOfNewNode = tree.indexes[index.parent].children.indexOf(index.id) + 1;
         tree.indexes[index.parent].node.children.splice(positionInArrOfNewNode, 0, new Node(''))
-        this.setState({input: evt.key});
-
+        this.setState({ input: evt.key });
       }
     }
     // else {
@@ -73,18 +93,32 @@ class App extends Component {
     return (
       <span>
         <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} />
+        {/* <AceEditor
+              mode="javascript"
+              theme="github"
+              className={active ? 'node is-active' : 'node'}
+              onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
+              name={node.uid}
+              fontSize={14}
+              editorProps={{ $blockScrolling: false }}
+              maxLines={1}
+              value={node.module}
+              onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
+              showGutter={false}
+        /> */}
         <ContentEditable
-          // html={node.result || node.module}
+          html={node.result || node.module}
           // html={node.module + ' ' + node.uid}
           html={node.module}
-          className={ active ? 'node is-active' : 'node'}
+          className={active ? 'node is-active' : 'node'}
           tagName="span"
           onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
           contentEditable="plaintext-only"
-          onClick={(evt) => this.onClickNode(evt, node)}
+          onClick={(evt) => this.onClickNode(evt, node, index, tree)}
           onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
-        <div className="js"> [JavaScript Output: {node.result}]</div>
+        <div className="js">{node.result !== '' ? 'result: ' + node.result : ''}</div>
+        {/* <SyntaxHighlighter className="js" style={style} language="javascript">{node.result !== '' ? 'result: ' + node.result : ''}</SyntaxHighlighter> */}
         <br />
         <ContentEditable
           html={node.note}
@@ -103,50 +137,74 @@ class App extends Component {
     tree.update(index, value, tree, node, this.jankySetState, this.state.functions);
   }
 
-  onClickNode(evt, node) {
+  onClickNode(evt, node, index, tree) {
+    console.log('tree', tree);
+    tree.indexes[index.id].node.active = true;
     this.setState({
       active: node.uid,
-      input: node.uuid
     });
     console.log('active state', this.state.active);
   }
 
-  onHomeClick () {
-    this.setState({outline: outline})
+  onHomeClick() {
+    this.setState({ outline: outline })
+  }
+
+  toggleFunctions() {
+    this.setState({ showFunctions: !this.state.showFunctions })
   }
 
   render() {
     console.log('this.state', this.state);
     return (
       <div className="app">
-        <h1>{this.state.outline.module}
         <div className="nav-icon">
-          <div className="icons" onClick={this.onHomeClick}>🏠</div>
-          <div className="icons">⚙️</div>
+          {/* <div className="icons" size="2x" onClick={this.onHomeClick}>🏠</div>
+          <div className="icons" size="2x" onClick={this.toggleFunctions}>⚙️</div> */}
+          <FontAwesome className="icons" size="2x" name='home' onClick={this.onHomeClick} />
+          <FontAwesome className="icons" size="2x" name='sliders' onClick={this.toggleFunctions} />
+          <FontAwesome className="icons" size="2x" name='rocket' />
         </div>
-        
-        {/* <div className="home">Settings</div> */}
-        </h1>
-        {/* <div className="home">🏠</div> */}
-        <span>in Fullstack Academy > Projects</span>
-        <div className="tree">
-          {<Tree
-            paddingLeft={60}
-            tree={this.state.outline}
-            onChange={this.handleChange}
-            isNodeCollapsed={this.isNodeCollapsed}
-            renderNode={this.renderNode}
-          />}
+        { !this.state.showFunctions ? (
+          <div>
+            <h1>{this.state.outline.module}</h1>
+            <span>in Fullstack Academy > Projects</span>
+            <div className="tree">
+              {<Tree
+                paddingLeft={60}
+                tree={this.state.outline}
+                onChange={this.handleChange}
+                isNodeCollapsed={this.isNodeCollapsed}
+                renderNode={this.renderNode}
+              />}
+          </div>
         </div>
-        {/* <div className="inspector">
-          <h1>
-            Inspector
-          </h1>
-          <button onClick={this.updateTree}>update tree</button>
-          <pre>{JSON.stringify(this.state.tree, null, '  ')}</pre>
-        </div> */}
+        ) : (
+          <div>
+          <h1>Edit your global functions</h1>
+          <span>They will be available in every node of your outline.</span>
+          <div className="tree">
+            <AceEditor
+              mode="javascript"
+              theme="github"
+              onChange={this.handleFunctionsChange}
+              name="functions"
+              fontSize={14}
+              editorProps={{ $blockScrolling: false }}
+              maxLines={10}
+              value={this.state.functions}
+              enableBasicAutocompletion={true}
+              enableLiveAutocompletion={true}
+            />
+          </div>
+        </div>
+        ) }
       </div>
     );
+  }
+
+  handleFunctionsChange(value) {
+    this.setState({ functions: value })
   }
 
   handleChange(outlineChange) {
