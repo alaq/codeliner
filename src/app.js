@@ -191,10 +191,10 @@ class App extends Component {
               name="functions"
               fontSize={14}
               editorProps={{ $blockScrolling: false }}
-              maxLines={10}
               value={this.state.functions}
               enableBasicAutocompletion={true}
               enableLiveAutocompletion={true}
+              width={1000}
             />
           </div>
         </div>

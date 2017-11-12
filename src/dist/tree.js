@@ -68,9 +68,16 @@ proto.update = function (id, newValue, tree, nod, jankySetState, functions) {
   this.indexes[id.id].node.module = newValue;
   const node = nod;
 
+  console.log('tree', tree)
+
   function compile(str) {
     
-      if (str.indexOf('{') === -1) return eval(str);
+
+
+      if (str.indexOf('{') === -1) {
+        
+        return eval(functions + str);
+      }
 
       str = '}' + str + '{';
     
@@ -102,8 +109,6 @@ proto.update = function (id, newValue, tree, nod, jankySetState, functions) {
   // newValue = '{' + functions + '}' + '\n' + newValue;
 
   try {
-    // const result = eval(newValue.toString());
-    console.log(newValue);
     const result = compile(newValue);
     if (typeof result === 'object') this.indexes[id.id].node.result = JSON.stringify(result);
     else this.indexes[id.id].node.result = result;
