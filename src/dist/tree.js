@@ -91,17 +91,19 @@ proto.update = function (id, newValue, tree, nod, jankySetState, functions) {
     
       let result = ''
       strSplit.forEach((string, i) => {
-        result += string + (eval(values[i]) || '');
+
+        result += string + (eval(functions + values[i]) || '');
       });
     
       return result;
     }
 
   // lets declare the functions
-  // newValue = functions + newValue;
+  // newValue = '{' + functions + '}' + '\n' + newValue;
 
   try {
     // const result = eval(newValue.toString());
+    console.log(newValue);
     const result = compile(newValue);
     if (typeof result === 'object') this.indexes[id.id].node.result = JSON.stringify(result);
     else this.indexes[id.id].node.result = result;
