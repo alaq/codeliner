@@ -3,7 +3,7 @@
 var Tree = require('js-tree')
 var proto = Tree.prototype
 
-proto.updateNodesPosition = function() {
+proto.updateNodesPosition = function () {
   var top = 1
   var left = 1
   var root = this.getIndex(1)
@@ -18,7 +18,7 @@ proto.updateNodesPosition = function() {
 
   function walk(children, parent, left, collapsed) {
     var height = 1
-    children.forEach(function(id) {
+    children.forEach(function (id) {
       var node = self.getIndex(id)
       if (collapsed) {
         node.top = null
@@ -47,7 +47,7 @@ proto.updateNodesPosition = function() {
   }
 }
 
-proto.move = function(fromId, toId, placement) {
+proto.move = function (fromId, toId, placement) {
   if (fromId === toId || toId === 1) return
 
   var obj = this.remove(fromId);
@@ -64,15 +64,45 @@ proto.move = function(fromId, toId, placement) {
 }
 
 // Here we update the content of the node (node.module)
-proto.update = function(id, newValue, tree, nod, jankySetState, functions) {
+proto.update = function (id, newValue, tree, nod, jankySetState, functions) {
   this.indexes[id.id].node.module = newValue;
   const node = nod;
 
+  function compile(str) {
+    
+      if (str.indexOf('{') === -1) return eval(str);
+
+      str = '}' + str + '{';
+    
+      var values = [],          // an array to collect the strings that are found
+        rxp = /{([^}]+)}/g,
+        curMatch;
+    
+      while (curMatch = rxp.exec(str)) {
+        values.push(curMatch[1]);
+      }
+    
+      const strSplit = [];
+      str.split('}').forEach(subCode => {
+        strSplit.push(subCode.split('{')[0])
+    
+      })
+      strSplit.shift();
+    
+      let result = ''
+      strSplit.forEach((string, i) => {
+        result += string + (eval(values[i]) || '');
+      });
+    
+      return result;
+    }
+
   // lets declare the functions
-  newValue = functions + newValue;
+  // newValue = functions + newValue;
 
   try {
-    const result = eval(newValue.toString());
+    // const result = eval(newValue.toString());
+    const result = compile(newValue);
     if (typeof result === 'object') this.indexes[id.id].node.result = JSON.stringify(result);
     else this.indexes[id.id].node.result = result;
   } catch (e) {
@@ -83,7 +113,7 @@ proto.update = function(id, newValue, tree, nod, jankySetState, functions) {
   jankySetState({ input: newValue });
 };
 
-proto.getNodeByTop = function(top) {
+proto.getNodeByTop = function (top) {
   var indexes = this.indexes;
   for (var id in indexes) {
     if (indexes.hasOwnProperty(id)) {
