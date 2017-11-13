@@ -58,4 +58,4 @@ typings/
 .env
 
 # more additions
-public/bundle.js
+#public/bundle.js
