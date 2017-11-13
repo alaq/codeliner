@@ -92,7 +92,7 @@ class App extends Component {
       <span>
         <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} />
         {node.children.length ?
-        <FontAwesome className="bullet" name='dot-circle-o' /> :
+        <FontAwesome className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} name='dot-circle-o' /> :
         <FontAwesome className="bullet" name='circle' />
         
       }

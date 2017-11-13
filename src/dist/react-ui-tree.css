@@ -38,18 +38,18 @@
 .m-node .collapse {
   cursor: pointer;
   display: none;
-  position: relative;
-  left: 10px;
+  position: absolute;
+  left: -7px;
 }
 .m-node .caret-right:before {
   content: '\25B8';
   color: #666;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 .m-node .caret-down:before {
   content: '\25BE';
   color: #666;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .m-node .caret-down:hover::before, .caret-right:hover::before {
