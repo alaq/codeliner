@@ -12,17 +12,55 @@
   padding: 2px;
 }
 
-
 .m-node ~ .children {
   padding-left: 60px!important;
 }
 
 .m-node .node {
-  display: inline-block;
+  /* display: inline-block; */
+  /* margin-left: .5em; */
+  /* position: absolute;
+  top: 3px;
+  left: 12px; */
+  width: 50%
 }
 
 .m-node .node.is-active {
-  background-color: red
+  /* background-color: red */
+}
+
+.editable {
+  position: absolute;
+  top: 3px;
+  left: 21px;
+  opacity: 0;
+}
+
+.output {
+  /* display: inline-block; */
+  position: absolute;
+  /* bottom: 0px; */
+  top: 3px;
+  left: 21px;
+  overflow: hidden;
+  height: 19px;
+  width: 50%;
+}
+
+.editable:focus {
+  opacity: 1;
+  width: 100%;
+  background-color: white;
+}
+
+.editable:focus + .output {
+  display: none;
+  opacity: 0;
+}
+
+
+.editable:focus + .js {
+  display: inline-block;
 }
 
 h1 {
@@ -30,11 +68,6 @@ h1 {
   padding-top: 30px;
   font-weight: 100;
   margin-bottom: 0px;
-}
-
-.node {
-  /* width: 90%; */
-  padding-left: 5px;
 }
 
 .note {
@@ -58,7 +91,13 @@ h1 {
 .inner:hover .collapse {
   display: inline;
   /* position: absolute; */
-  left: -25px;
+  /* left: -15px; */
+}
+
+.inner:hover .editable {
+  opacity: 1;
+  width: 100%;
+  background-color: white;
 }
 
 .js {
@@ -70,7 +109,7 @@ h1 {
   max-width: 300px;
 }
 
-.node:focus + .js {
+.ace_editor:focus + .js {
   display: inline-block;
 }
 
@@ -102,6 +141,16 @@ h1 {
   font-family: 'Helvetica', sans-serif;
 }
 
-/* body > *:not(#loading) {
-  filter: blur(3px);
-} */
+.bullet {
+  color: #666;
+  padding-right: 5px;
+  font-size: 13px;
+}
+
+.bullet:hover {
+  color: red;
+}
+
+h1 {
+  color: red;
+}

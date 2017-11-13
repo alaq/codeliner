@@ -6,21 +6,18 @@ import Tree from './dist/react-ui-tree';
 import outline from './tree';
 import ContentEditable from 'react-simple-contenteditable';
 import AceEditor from 'react-ace';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-// import { style } from 'react-syntax-highlighter/dist/styles/vs'
-// import { style } from '../public/vs'
 var FontAwesome = require('react-fontawesome');
 
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
 // import packageJSON from '../package.json';
-// import cx from 'classnames';
+import cx from 'classnames';
 
 function Node(text) {
-  this.module = text;
+  this.text = text;
   this.nametwice = function () {
-    return this.module + ' ' + this.module;
+    return this.text + ' ' + this.text;
   };
   this.children = []
 }
@@ -40,7 +37,7 @@ class App extends Component {
     this.state = {
       active: null,
       outline: outline,
-      headNode: outline.module, // not used yet
+      headNode: outline.text, // not used yet
       lastNode: '22',
       input: '',
       functions: functions,
@@ -92,33 +89,58 @@ class App extends Component {
     const active = +this.state.active === +node.uid;
     return (
       <span>
+      <span>
         <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} />
+        {node.children.length ?
+        <FontAwesome className="bullet" name='dot-circle-o' /> :
+        <FontAwesome className="bullet" name='circle' />
+        
+      }
         {/* <AceEditor
               mode="javascript"
               theme="github"
-              className={active ? 'node is-active' : 'node'}
-              onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
+              className={cx('node', {
+                'is-active': node === this.state.active
+              })}
+              // onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
               name={node.uid}
               fontSize={14}
               editorProps={{ $blockScrolling: false }}
               maxLines={1}
-              value={node.module}
+              value={node.text}
               onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
               showGutter={false}
+              onClick={this.onClickNode.bind(null, node)}
         /> */}
+        {/* <span contentEditable={true}
+          className={cx('node', {
+          'is-active': node === this.state.active
+          })}
+          onClick={this.onClickNode.bind(null, node)}
+          onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
+          onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
+          onInput={this.handleTextChange}
+        >
+        {node.text}
+        </span> */}
+
+        <div className="output">
+          {node.result || node.text}
+        </div>
+
         <ContentEditable
-          html={node.result || node.module}
-          // html={node.module + ' ' + node.uid}
-          html={node.module}
-          className={active ? 'node is-active' : 'node'}
-          tagName="span"
+          // html={node.result || node.text}
+          html={node.text}
+          className={cx('editable' ,'node', {
+            'is-active': node === this.state.active
+          })}
+          tagName="div"
           onChange={(evt, value) => this.handleTextChange(evt, value, index, tree, node)}
           contentEditable="plaintext-only"
-          onClick={(evt) => this.onClickNode(evt, node, index, tree)}
+          onClick={this.onClickNode.bind(null, node)}
           onKeyPress={(evt) => this.handleKeyPress(evt, node, index, tree)}
         />
         <div className="js">{node.result !== '' ? 'result: ' + node.result : ''}</div>
-        {/* <SyntaxHighlighter className="js" style={style} language="javascript">{node.result !== '' ? 'result: ' + node.result : ''}</SyntaxHighlighter> */}
         <br />
         <ContentEditable
           html={node.note}
@@ -128,8 +150,9 @@ class App extends Component {
           contentEditable="plaintext-only"
           onClick={this.onClickNode}
         />
-        <div className="note output"></div>
       </span>
+        <div className="note"></div>
+        </span>
     );
   }
 
@@ -137,17 +160,14 @@ class App extends Component {
     tree.update(index, value, tree, node, this.jankySetState, this.state.functions);
   }
 
-  onClickNode(evt, node, index, tree) {
-    console.log('tree', tree);
-    tree.indexes[index.id].node.active = true;
+  onClickNode(node) {
     this.setState({
-      active: node.uid,
+      active: node
     });
-    console.log('active state', this.state.active);
   }
 
   onHomeClick() {
-    this.setState({ outline: outline })
+    this.setState({ outline: outline, showFunctions: false })
   }
 
   toggleFunctions() {
@@ -159,15 +179,13 @@ class App extends Component {
     return (
       <div className="app">
         <div className="nav-icon">
-          {/* <div className="icons" size="2x" onClick={this.onHomeClick}>🏠</div>
-          <div className="icons" size="2x" onClick={this.toggleFunctions}>⚙️</div> */}
           <FontAwesome className="icons" size="2x" name='home' onClick={this.onHomeClick} />
           <FontAwesome className="icons" size="2x" name='sliders' onClick={this.toggleFunctions} />
-          <FontAwesome className="icons" size="2x" name='rocket' />
+          <FontAwesome className="icons" size="2x" name='archive' />
         </div>
         { !this.state.showFunctions ? (
           <div>
-            <h1>{this.state.outline.module}</h1>
+            <h1>{this.state.outline.text}</h1>
             <span>in Fullstack Academy > Projects</span>
             <div className="tree">
               {<Tree
@@ -194,7 +212,7 @@ class App extends Component {
               value={this.state.functions}
               enableBasicAutocompletion={true}
               enableLiveAutocompletion={true}
-              width={1000}
+              width={800}
             />
           </div>
         </div>
@@ -216,7 +234,7 @@ class App extends Component {
   updateTree() {
     const outlineUpdate = this.state.outline;
     outlineUpdate.children.push({
-      module: 'New node',
+      text: 'New node',
       note: 'With a note 🗒️'
     });
     this.setState({

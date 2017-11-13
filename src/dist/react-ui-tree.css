@@ -38,6 +38,8 @@
 .m-node .collapse {
   cursor: pointer;
   display: none;
+  position: relative;
+  left: 10px;
 }
 .m-node .caret-right:before {
   content: '\25B8';
@@ -54,7 +56,7 @@
   color: red;
 }
 
-.m-node .bullet:before {
+/* .m-node .bullet:before {
   content: '\25CF';
   color: #666;
   padding-right: 5px;
@@ -62,7 +64,17 @@
 
 .m-node .bullet:hover::before {
   color: red;
+} */
+
+/* .bullet {
+  color: #666;
+  padding-right: 5px;
+  font-size: 13px;
 }
+
+.bullet:hover {
+  color: red;
+} */
 
 .bullet-old {
   background-image: url('/bullet.svg');
