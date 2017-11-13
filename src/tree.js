@@ -3,7 +3,7 @@ module.exports = {
   uid: '0',
   children: [
     {
-      text: 'Commit Journal',
+      text: 'js-flow\'s commit journal',
       collapsed: false,
       note: 'A record of progress, or lack of, day by day',
       uid: '1',
@@ -20,7 +20,7 @@ module.exports = {
               children: []
             },
             {
-              text: 'basic styling part 1',
+              text: 'feat(UI): basic styling',
               leaf: true,
               children: []
             }
@@ -32,7 +32,7 @@ module.exports = {
           uid: '3',
           children: [
             {
-              text: 'feat(code): states update + Javascript in node gets evaluated',
+              text: 'feat(code): states update + Javascript evaluated',
               leaf: true,
               children: []
             },
@@ -103,14 +103,14 @@ module.exports = {
               children: []
             },
             {
-              text: 'fix(server); changing default port for deployment',
+              text: 'fix(deploy): changing default port',
               leaf: true,
               children: []
             }
           ]
         },
         {
-          text: 'Monday: presentation 🎉',
+          text: 'Monday: presentation',
           leaf: true,
           uid: '7',
           children: []

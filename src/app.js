@@ -22,8 +22,8 @@ function Node(text) {
   this.children = []
 }
 
-const functions = `function helloWorld() {
-  return 'hello world'
+const functions = `function hello() {
+  return 'Hello FullStack!'
 }
 
 function wc(url)
@@ -100,7 +100,7 @@ class App extends Component {
         {node.children.length && node.collapsed ?
         <FontAwesome className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} name='dot-circle-o' /> :
         <FontAwesome className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} name='circle' />
-        
+
       }
         {/* <AceEditor
               mode="javascript"
