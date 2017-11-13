@@ -29,6 +29,16 @@ const functions = `function helloWorld() {
 function elloWorld() {
   return 1+1
 }
+
+function wc(url)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", 'https://mercury.postlight.com/parser?url=' + url, false );
+  	xmlHttp.setRequestHeader("Content-Type", "application/json");
+  	xmlHttp.setRequestHeader("x-api-key", "c5XlmpwcTjfLN7MiUi5eVmNzHfQU2bRMFVpgHsLJ");
+    xmlHttp.send( null );
+    return JSON.parse(xmlHttp.responseText).word_count;
+}
 `
 
 class App extends Component {
@@ -86,14 +96,14 @@ class App extends Component {
   }
 
   renderNode(node, index, tree) {
-    const active = +this.state.active === +node.uid;
+    // const active = +this.state.active === +node.uid;
     return (
       <span>
       <span>
         <span className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} />
-        {node.children.length ?
+        {node.children.length && node.collapsed ?
         <FontAwesome className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} name='dot-circle-o' /> :
-        <FontAwesome className="bullet" name='circle' />
+        <FontAwesome className="bullet" onClick={(evt) => this.handleBulletClick(evt, node, index)} name='circle' />
         
       }
         {/* <AceEditor

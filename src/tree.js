@@ -3,11 +3,10 @@ module.exports = {
   uid: '0',
   children: [
     {
-      text: 'Stackathon Dev Journal',
+      text: 'Commit Journal',
       collapsed: false,
       note: 'A record of progress, or lack of, day by day',
       uid: '1',
-      result: 'Stackathon Dev Journal',
       parents: () => 'here will be the parents',
       children: [
         {
@@ -16,36 +15,99 @@ module.exports = {
           uid: '2',
           children: [
             {
-              text: 'Started late afternoon',
+              text: 'initial commit',
               leaf: true,
               children: []
             },
-
+            {
+              text: 'basic styling part 1',
+              leaf: true,
+              children: []
+            }
           ]
         },
         {
           text: 'Thursday',
           leaf: true,
           uid: '3',
-          children: []
+          children: [
+            {
+              text: 'feat(code): states update + Javascript in node gets evaluated',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'feat(navigation): header icons',
+              leaf: true,
+              children: []
+            }
+          ]
         },
         {
           text: 'Friday',
           leaf: true,
           uid: '4',
-          children: []
+          children: [
+            {
+              text: 'feat(ace): adding editor for the functions',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'feat(eval): add string/code interpolation',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'fix(eval): fix interpolation + added functions to all evals',
+              leaf: true,
+              children: []
+            }
+          ]
         },
         {
           text: 'Saturday',
           leaf: true,
           uid: '5',
-          children: []
+          children: [
+            {
+              text: 'feat(ui tree): bringing in react-ui-tree',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'feat(styling): styling closer to end product',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'fix(state): states update upon keypress',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'feat(title): dynamic title',
+              leaf: true,
+              children: []
+            }
+          ]
         },
         {
           text: 'Sunday',
           leaf: true,
           uid: '6',
-          children: []
+          children: [
+            {
+              text: 'fix(layout): css tweaks',
+              leaf: true,
+              children: []
+            },
+            {
+              text: 'fix(server); changing default port for deployment',
+              leaf: true,
+              children: []
+            }
+          ]
         },
         {
           text: 'Monday: presentation 🎉',
@@ -58,25 +120,103 @@ module.exports = {
     {
       text: 'Project',
       uid: '8',
+      note: 'Kanban style, in a list.',
       children: [
         {
           text: 'Backlog',
           leaf: true,
           uid: '9',
           result: '',
-          children: []
+          children: [
+            {
+              text: 'Make a presentation',
+              leaf: true,
+              uid: '12',
+              children: []
+            },
+            {
+              text: 'react-ui-tree.js',
+              leaf: true,
+              uid: '13',
+              children: []
+            },
+            {
+              text: 'react-ui-tree.less',
+              leaf: true,
+              uid: '14',
+              children: []
+            },
+            {
+              text: 'tree.js',
+              leaf: true,
+              uid: '15',
+              children: []
+            }
+          ]
         },
         {
           text: 'Maybe/Later',
           uid: '9',
           leaf: true,
-          children: []
+          collapsed: true,
+          children: [
+            {
+              text: 'node.js',
+              leaf: true,
+              uid: '12',
+              children: []
+            },
+            {
+              text: 'react-ui-tree.js',
+              leaf: true,
+              uid: '13',
+              children: []
+            },
+            {
+              text: 'react-ui-tree.less',
+              leaf: true,
+              uid: '14',
+              children: []
+            },
+            {
+              text: 'tree.js',
+              leaf: true,
+              uid: '15',
+              children: []
+            }
+          ]
         },
         {
           text: 'Done',
           leaf: true,
           uid: '10',
-          children: []
+          collapsed: true,
+          children: [
+            {
+              text: 'node.js',
+              leaf: true,
+              uid: '12',
+              children: []
+            },
+            {
+              text: 'react-ui-tree.js',
+              leaf: true,
+              uid: '13',
+              children: []
+            },
+            {
+              text: 'react-ui-tree.less',
+              leaf: true,
+              uid: '14',
+              children: []
+            },
+            {
+              text: 'tree.js',
+              leaf: true,
+              uid: '15',
+              children: []
+            }
+          ]
         }
       ]
     },
