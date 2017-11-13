@@ -59,7 +59,7 @@ module.exports = {
               children: []
             },
             {
-              text: 'fix(eval): fix interpolation + added functions to all evals',
+              text: 'fix(eval): fix interpolation + added evals',
               leaf: true,
               children: []
             }

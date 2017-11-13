@@ -26,10 +26,6 @@ const functions = `function helloWorld() {
   return 'hello world'
 }
 
-function elloWorld() {
-  return 1+1
-}
-
 function wc(url)
 {
     var xmlHttp = new XMLHttpRequest();
