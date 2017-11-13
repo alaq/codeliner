@@ -63,9 +63,9 @@ proto.move = function (fromId, toId, placement) {
   return index;
 }
 
-// Here we update the content of the node (node.module)
+// Here we update the content of the node (node.text)
 proto.update = function (id, newValue, tree, nod, jankySetState, functions) {
-  this.indexes[id.id].node.module = newValue;
+  this.indexes[id.id].node.text = newValue;
   const node = nod;
 
   console.log('tree', tree)
